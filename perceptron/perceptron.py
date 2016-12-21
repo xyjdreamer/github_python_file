@@ -10,7 +10,7 @@ class perceptron():
     def __init__(self):
         pass
     #label = -1, +1
-    def train(self,input,label,learning_rate=0.1,epochs=5000):
+    def train(self,input,label,learning_rate=0.1,epochs=500):
         #增加偏置
         input_bias = np.hstack((input,np.ones((input.shape[0],1))))
         #初始化权值,列向量
@@ -34,17 +34,13 @@ class perceptron():
             temp[temp <= 0] = 1
         print temp
 
-
-    def sigmoid(self,x):
-        return 1.0/(1+np.exp(x))
-
     def predict(self,data):
         data_bias = np.hstack((data,np.ones(1)))
         return np.dot(data_bias,self.weight)
 
 if __name__=='__main__':
     data1 = np.array([[0,0],[0,1],[1,0],[1,1]])
-    data2 = np.array([0,1,1,1])
+    data2 = np.array([-1,1,1,1])
 
     nn = perceptron()
     nn.train(data1,data2)
