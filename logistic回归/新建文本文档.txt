@@ -1,0 +1,38 @@
+#画图:散点图以及拟合直线
+xcord1=[]; ycord1=[]
+xcord2=[]; ycord2=[]
+
+for i in range(np.size(labelArray,1)):
+    if labelArray[i] == 1:
+        xcord1.append(featureArray[i][1])
+        ycord1.append(featureArray[i][2])
+    else:
+        xcord2.append(featureArray[i][1])
+        ycord2.append(featureArray[i][2])
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.scatter(xcord1,ycord1,s=30,c='red',marker='s',label='class1')
+ax.scatter(xcord2,ycord2,s=30,c='green',marker='x',label='class2')
+
+x = np.arange(-4.0,4.0,0.1)
+y = (-theta[0]-theta[1]*x)/theta[2]
+a = []
+for i in range(np.size(y)):
+    a.append(y[i])
+ax.plot(x,a,label='$\\theta_1=%.3f,\\theta_2=%.3f$'%(theta[1],theta[2]),color='black',ls = '-',lw=2)
+
+ax.set_xlabel('X1');ax.set_ylabel('X2')
+plt.legend(loc='best')
+plt.show()
+
+
+
+
+theta = np.zeros(np.size(var_X,1)) #构建一维列向量
+    alpha = 0.01
+    iterations = 500
+    for j in range(iterations):
+        for i in range(len(var_X)):
+            h = logisticFunction(var_X[i]*theta)
+            theta = theta + alpha*(var_y[i] - h)*var_X[i]
+    return theta
