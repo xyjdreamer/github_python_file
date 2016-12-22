@@ -57,6 +57,9 @@ if __name__ == '__main__':
     input = np.array([[0,0],[0,1],[1,0],[1,1]])
     output = np.array([0,1,1,0])
     nn.train(input,output)
+    print '1-th layer weight:\n',nn.weight[0]
+    print '2-th layer weight:\n', nn.weight[1]
+    print 'predict result:'
     for test in input:
         print test,nn.predict(test)
 

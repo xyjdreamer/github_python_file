@@ -21,6 +21,11 @@ class SVM:
 
     def kernal(self,X1,X2):   #核函数,内积
         return np.inner(X1,X2)
+        #polynomial kernal
+        #p = 2,3,,4,5,....
+        # return (1 + np.inner(X1,X2))**15
+        # delta = X1 -X2
+        # return np.exp(delta*delta.T/(-2*1.3**2))
 
     def f(self,i):
         return self.a * self.y * self.k(self.x[i]) + self.b
@@ -197,7 +202,13 @@ class SVM:
                 entireSet = True
             print "iteration number: %d" % iter
 
-
+    def calcWs(self):
+        labelMat = np.mat(self.y).transpose()
+        m,n = self.x.shape
+        w = np.zeros((n, 1))
+        for i in range(m):
+            w += np.multiply(self.a[i] * labelMat[i], self.x[i, :].T)
+        return w
 
 
 def readDataFromTxt(filename):
@@ -205,16 +216,30 @@ def readDataFromTxt(filename):
     featureArray = data[:,0:2]
     labelArray = data[:,-1]
     return featureArray , labelArray
-x,y = readDataFromTxt('testSet.txt')
 
-import time
-t1 = time.clock()
-testSVM = SVM(x,y,0.001,0.6,500)
-testSVM.PlattSMO()
-t2 = time.clock()
-print testSVM.b
-print testSVM.a[testSVM.a>0]
-print 'time:',t2-t1,'s'
+
+if __name__=='__main__':
+    import time
+    x,y = readDataFromTxt('testSet.txt')
+    t1 = time.clock()
+    # x = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+    # y = np.array([-1, 1, 1, -1])
+
+    testSVM = SVM(x,y,0.001,0.6,400)
+    testSVM.PlattSMO()
+    #testSVM.SimplifiedSMO()
+
+    t2 = time.clock()
+    print testSVM.b
+    print testSVM.a[testSVM.a>0]
+    print 'time:',t2-t1,'s'
+
+    # weight = testSVM.calcWs()
+    # for test in x:
+    #     print np.dot(test,weight)
+
+
+
 
 
 
