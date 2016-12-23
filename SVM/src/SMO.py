@@ -151,7 +151,7 @@ def smop(dataMatIn, classLables, C, toler, maxIter, kTup=('lin',0)):
         elif (alphaPairsChanged == 0):
             entireSet = True
         print "iteration number: %d" %iteration
-#     showSVM(os)
+    # showSVM(os)
     return os.b,os.alpha
 
 def showSVM(os):
@@ -170,9 +170,11 @@ def showSVM(os):
     w = zeros((2, 1))
     for i in supportVectorsIndex:
         w += multiply(os.alpha[i] * os.lableMat[i], os.lableMat[i, :].T)
-#     min_x = min(os.lableMat[:,0])[0,0]
-#     max_x = max(os.lableMat[:,0])[0,0]
-#     y_min_x = float(-os.b - w[0]*min_x)
-#     y_max_x = float(-os.b - w[0]*max_x)
-#     plt.plot([min_x, max_x],[y_min_x,y_max_x],'-g')
-    plt.show()
+    # min_x = min(os.lableMat[:,0])[0,0]
+    # max_x = max(os.lableMat[:,0])[0,0]
+    # y_min_x = float(-os.b - w[0]*min_x)
+    # y_max_x = float(-os.b - w[0]*max_x)
+    # plt.plot([min_x, max_x],[y_min_x,y_max_x],'-g')
+    # plt.xlim([-2,2])
+    # plt.ylim([-2,2])
+    # plt.show()
